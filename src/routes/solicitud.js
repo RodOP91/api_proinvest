@@ -9,4 +9,11 @@ router.post('/prueba', (req, res) =>{
     })
 })
 
+router.get('/prueba2', (req, res)=>{
+    console.log("Ha funcionado")
+    res.status(200).json({
+        message: 'éxito'
+    })
+})
+
 module.exports = router
