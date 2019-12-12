@@ -124,8 +124,11 @@ router.post('/new',[check('email').isEmail()], (req, res) =>{
         var mailOptions = { from: 'rodrigo.op1791@gmail.com', to: req.body.email, subject: 'Account Verification Token', 
         text: 'Hello,\n\n' + 'Su código de validación es: ' + token.token + '\n\n Recuerde que su código expira 12 horas después de haber recibido este mail.' };
         transporter.sendMail(mailOptions, function (err) {
-            if (err) { return res.status(500).send({ msg: err.message }); }
-            console.log('A verification email has been sent to ' + user.email + '.')
+            if (err) {
+                console.error(err)
+                return
+            }
+            console.log('A verification email has been sent to ' + req.body.email + '.')
         })
     })
 
@@ -207,7 +210,7 @@ router.get('/sms/validation', (req, res) =>{
             doc.telefono_isValidado = true;
             doc.save(function (err) {
                 if (err) { return res.status(500).send({ msg: err.message }); }
-                res.status(200).send("El email ha sido validado exitosamente");
+                res.status(200).send("El sms ha sido validado exitosamente");
             })
         })
     })

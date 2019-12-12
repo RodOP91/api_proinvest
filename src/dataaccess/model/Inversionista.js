@@ -87,7 +87,8 @@ var InversionistaSchema = new Schema({
     //TERMINAN PROPIEDADES DEL PASO 2
     solicitud_terminada:{
         required: false,
-        type: Number
+        default: false,
+        type: Boolean
     },
 })
 
