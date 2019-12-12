@@ -5,6 +5,10 @@ const apiInversionista = require('./routes/InversionistaRoutes')
 const apiInversion = require('./routes/InversionRoutes')
 const bodyParser = require('body-parser')
 
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    next();
+  });
 app.use(bodyParser.json({limit:'10mb'}))
 app.use('/inversionista', apiInversionista)
 app.use('/inversion', apiInversion)
