@@ -3,9 +3,13 @@ const Schema = mongoose.Schema
 
 var TokenSchema = new Schema({
     _userId:{
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         required: true,
         ref: 'User'
+    },
+    tipo:{
+        type: String,
+        required: true,
     },
     token:{
         required: true,
@@ -18,3 +22,6 @@ var TokenSchema = new Schema({
         expires: 43200
     }
 })
+
+var Token = mongoose.model('Token', TokenSchema)
+module.exports = Token
