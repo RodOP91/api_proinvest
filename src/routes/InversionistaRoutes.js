@@ -172,12 +172,12 @@ router.post('/new',[check('email').isEmail()], (req, res) =>{
 router.get('/mail/validation', (req, res) =>{
  
     // Find a matching token
-    Token.findOne({ token: req.body.token }, function (err, token) {
-        if (!token) return res.status(400).send({ type: 'not-verified', msg: 'No podemos verificar su email. Recuerde que su link de confirmación dura 12hrs. a partir de que recibe su mail de confirmación.' });
+    Token.findOne({ token: req.body.token }, function (err, doc_token) {
+        if (!doc_token) return res.status(400).send({ type: 'not-verified', msg: 'No podemos verificar su email. Recuerde que su link de confirmación dura 12hrs. a partir de que recibe su mail de confirmación.' });
  
         // If we found a token, find a matching user
-        console.log(token._userId)
-        Inversionista.findOne({rfc: token._userId}, function (err, doc) {
+        console.log(doc_token._userId)
+        Inversionista.findOne({rfc: doc_token._userId}, function (err, doc) {
             if (!doc) return res.status(400).send({ msg: 'No existe ningún Inversionista asociado a este token (SMS)' });
             if (doc.email_isValidado) return res.status(400).send({ type: 'already-verified', msg: 'Este usuario ya ha sido validado' });
  
@@ -198,13 +198,14 @@ router.get('/sms/validation', (req, res) =>{
  
     // Find a matching token
     Token.findOne({ token: req.body.token }, function (err, token) {
-        if (!token) return res.status(400).send({ type: 'not-verified', msg: 'No podemos verificar su email. Recuerde que su link de confirmación dura 12hrs. a partir de que recibe su mail de confirmación.' });
+        if (!token) return res.status(400).send({ type: 'not-verified', msg: 'No podemos verificar su email. Recuerde que su link de confirmación dura 12hrs. a partir de que recibe su mail de confirmación.',
+     });
  
         // If we found a token, find a matching user
         console.log(token._userId)
         Inversionista.findOne({telefono_celular: token._userId}, function (err, doc) {
             if (!doc) return res.status(400).send({ msg: 'No existe ningún Inversionista asociado a este token' });
-            if (doc.email_isValidado) return res.status(400).send({ type: 'already-verified', msg: 'Este usuario ya ha sido validado' });
+            if (doc.telefono_isValidado) return res.status(400).send({ type: 'already-verified', msg: 'Este usuario ya ha sido validado' });
  
             // Verify and save the user
             doc.telefono_isValidado = true;
@@ -243,11 +244,10 @@ router.put('/paso2/:id', (req, res)=>{
         })
 })
 
-
-
 /**
  * SECCION DE CREACIÓN DE SMS
  */
+
 
 
 module.exports = router
