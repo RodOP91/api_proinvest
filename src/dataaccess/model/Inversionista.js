@@ -21,7 +21,7 @@ var InversionistaSchema = new Schema({
     },
     fecha_nac:{
         required: true,
-        type: Date
+        type: String
     },
     grado_academico:{
         required: true,
@@ -41,7 +41,8 @@ var InversionistaSchema = new Schema({
     },
     email_isValidado:{
         required: false,
-        type: Number,
+        default: false,
+        type: Boolean,
     },
     telefono_celular:{
         required: true,
@@ -49,7 +50,8 @@ var InversionistaSchema = new Schema({
     },
     telefono_isValidado:{
         required:false,
-        type: Number,
+        default: false,
+        type: Boolean,
     },
     //TERMINAN PROPIEDADES DEL PASO 1
 

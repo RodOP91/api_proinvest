@@ -61,7 +61,7 @@ router.post('/new', (req, res) =>{
      * Validación que los parámetros de req.body existan, regresa código 400 si faltan
      */
     if(!req.body.nombre || !req.body.apellido_paterno || !req.body.apellido_materno || !req.body.rfc
-        /*|| !req.body.fecha_nac*/ || !req.body.grado_academico || !req.body.profesion || !req.body.empresa
+        || !req.body.fecha_nac || !req.body.grado_academico || !req.body.profesion || !req.body.empresa
         || !req.body.email || !req.body.telefono_celular){
             res.status(400).json({
                 message: 'Parámetros incompletos y/o inválidos',
@@ -69,13 +69,13 @@ router.post('/new', (req, res) =>{
             })
             return
         }
-    let fecha = new Date()
+    //let fecha = new Date()
     let inversionista = new Inversionista({
         nombre: req.body.nombre,
         apellido_paterno: req.body.apellido_paterno,
         apellido_materno: req.body.apellido_materno,
         rfc: req.body.rfc,
-        fecha_nac: fecha,
+        fecha_nac: req.body.fecha_nac,
         grado_academico: req.body.grado_academico,
         profesion: req.body.profesion,
         empresa: req.body.empresa,
