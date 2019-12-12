@@ -5,6 +5,16 @@ var TokenSchema = new Schema({
     _userId:{
         type: mongoose.Schema.Types.ObjectId,
         required: true,
-        ref: ''
+        ref: 'User'
+    },
+    token:{
+        required: true,
+        type: String
+    },
+    createdAt:{
+        required: true,
+        type: Date,
+        default: Date.now,
+        expires: 43200
     }
 })
